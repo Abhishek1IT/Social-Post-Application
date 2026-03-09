@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
 import api from "../api";
 import { useNavigate } from "react-router-dom";
-import "../styles/feed.css"
+import "../styles/feed.css";
 
 export default function Feed() {
-
-  // Store the list of posts 
+  // Store the list of posts
   const [posts, setPosts] = useState([]);
 
   // Store the input value for the new post text
@@ -13,7 +12,7 @@ export default function Feed() {
 
   // Store the input value for the new post image URL
   const [image, setImage] = useState("");
-  
+
   // navigation (redirection)
   const navigate = useNavigate();
 
@@ -21,28 +20,28 @@ export default function Feed() {
   const loadPosts = async () => {
     try {
       // request to the backend
-      const res = await api.get("/api/post");
-      // Update the local state 
+      const res = await api.get("/post");
+      // Update the local state
       setPosts(res.data);
     } catch (err) {
       alert(err.response?.data?.message || "Failed to load posts");
     }
   };
 
-  // useEffect runs once when the component mounts (loads)
+  // useEffect runs once when the component 
   useEffect(() => {
     const fetchPosts = async () => {
       await loadPosts();
     };
     fetchPosts();
-  }, []); // Empty dependency array [] ensures this runs only once
+  }, []); // Empty dependency array 
 
   // create a new post
   const createPost = async (e) => {
     e.preventDefault(); // reloading form submit
 
     try {
-      await api.post("/api/post", {
+      await api.post("/post", {
         text,
         image,
       });
@@ -61,7 +60,7 @@ export default function Feed() {
   const likePost = async (id) => {
     try {
       // like endpoint using the post ID
-      await api.post(`/api/post/${id}/like`);
+      await api.post(`/post/${id}/like`);
       // update like count
       loadPosts();
     } catch (err) {
@@ -71,14 +70,13 @@ export default function Feed() {
 
   // adding a comment
   const addComment = async (id) => {
-
     const commentText = prompt("Enter comment");
 
     if (!commentText) return;
 
     try {
       // Send the comment to the backend
-      await api.post(`/api/post/${id}/comment`, {
+      await api.post(`/post/${id}/comment`, {
         text: commentText,
       });
       // show the new comment count
@@ -136,7 +134,10 @@ export default function Feed() {
 
           {/* Conditionally render image if one exists */}
           {p.image && (
-            <img className="post-image" src={p.image} alt="" width="200" />
+            <img className="post-url"
+              src={p.image}
+              alt="post"
+            />
           )}
 
           {/* Post Interactions */}

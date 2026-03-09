@@ -13,7 +13,8 @@ export default function Login() {
     e.preventDefault(); // reloding form submit
 
     try {
-      const res = await api.post("/api/auth/login", { // login request to backend
+      const res = await api.post("/auth/login", {
+        // login request to backend
         email,
         password,
       });
@@ -21,7 +22,7 @@ export default function Login() {
       localStorage.setItem("token", res.data.token); // token save
 
       // feed page
-      navigate("/feed"); 
+      navigate("/feed");
     } catch (err) {
       alert(err.response?.data?.message || "Login failed");
     }
@@ -46,13 +47,19 @@ export default function Login() {
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          autoComplete="current password"
         />
 
         <br />
 
         <button>Login</button>
-        <p>
-         Please create Account <Link to="/signup">Signup</Link>
+
+        <p className="login-link">
+          <Link to="/forgot-password">Forgot password?</Link>
+        </p>
+
+        <p className="login -link">
+          Please create Account <Link to="/signup">Signup</Link>
         </p>
       </form>
     </div>

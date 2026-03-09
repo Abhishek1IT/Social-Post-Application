@@ -1,7 +1,7 @@
 import { useState } from "react"; // hook import form data store
 import api from "../api"; // baseURL set
 import { useNavigate } from "react-router-dom"; // page redirect
-import { Link } from "react-router-dom"; // import LINK use login page
+import { Link } from "react-router-dom";
 import "../styles/signup.css";
 
 export default function Signup() {
@@ -21,9 +21,8 @@ export default function Signup() {
     e.preventDefault(); // page relode stop
 
     try {
-      console.log(form);
 
-      const res = await api.post("/api/auth/signup", form); // signup request to backend
+      const res = await api.post("/auth/signup", form); // signup request to backend
 
       localStorage.setItem("token", res.data.token); // token store to localstorage
 
@@ -38,7 +37,7 @@ export default function Signup() {
   return (
     <div className="signup-wrapper">
       <form className="signup-form" onSubmit={submit}>
-        <h2>Singup</h2>
+        <h2>Sign Up</h2>
 
         <input
           name="username"
@@ -60,6 +59,7 @@ export default function Signup() {
           placeholder="Password"
           onChange={handleChange}
           required
+          autoComplete="current password"
         />
 
         <button>Signup</button>

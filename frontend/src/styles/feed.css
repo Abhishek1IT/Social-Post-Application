@@ -78,8 +78,10 @@
   font-size: 14px;
 }
 
-.post-image {
-  max-width: 100%;
+.post-url {
+  width: 300px;
+  height: 200px;
+  object-fit: cover;
   border-radius: 6px;
   margin: 8px 0;
 }

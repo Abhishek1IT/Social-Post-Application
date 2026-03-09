@@ -1,0 +1,32 @@
+services:
+  backend:
+    build:
+      context: ./backend
+    container_name: social-backend
+    ports:
+      - "5001:5000"
+    env_file:
+      - .env.docker
+    depends_on:
+      - mongo
+    restart: always
+
+  mongo:
+    image: mongo:7
+    container_name: social-mongo
+    volumes:
+      - mongo-data:/data/db
+    restart: always
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: social-frontend
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend
+    restart: always
+
+volumes:
+  mongo-data:

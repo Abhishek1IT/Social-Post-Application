@@ -9,6 +9,7 @@ export const createPost = async (req, res) => {
       return res.status(400).json({ message: "Text or Image are require" });
     }
 
+    // Create Post
     const post = await Post.create({
       user: req.user._id,
       text,
@@ -41,6 +42,8 @@ export const likePost = async (req, res) => {
     if (!post) {
       return res.status(404).json({ message: "Post not found" });
     }
+
+    // Already Like 
     const alreadyLiked = post.likes.includes(req.user._id);
 
     if (alreadyLiked) {
